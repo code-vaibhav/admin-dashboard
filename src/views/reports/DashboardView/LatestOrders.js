@@ -28,7 +28,8 @@ const data = [
     ref: 'CDD1049',
     amount: 30.5,
     customer: {
-      name: 'Ekaterina Tankova'
+      name: 'Ekaterina Tankova',
+      total: '$450',
     },
     createdAt: 1555016400000,
     status: 'pending'
@@ -38,7 +39,8 @@ const data = [
     ref: 'CDD1048',
     amount: 25.1,
     customer: {
-      name: 'Cao Yu'
+      name: 'Cao Yu',
+      total: '$550',
     },
     createdAt: 1555016400000,
     status: 'delivered'
@@ -48,7 +50,8 @@ const data = [
     ref: 'CDD1047',
     amount: 10.99,
     customer: {
-      name: 'Alexa Richardson'
+      name: 'Alexa Richardson',
+      total: '$750',
     },
     createdAt: 1554930000000,
     status: 'refunded'
@@ -58,7 +61,8 @@ const data = [
     ref: 'CDD1046',
     amount: 96.43,
     customer: {
-      name: 'Anje Keizer'
+      name: 'Anje Keizer',
+      total: '$950',
     },
     createdAt: 1554757200000,
     status: 'pending'
@@ -68,7 +72,8 @@ const data = [
     ref: 'CDD1045',
     amount: 32.54,
     customer: {
-      name: 'Clarke Gillebert'
+      name: 'Clarke Gillebert',
+      total: '$1050'
     },
     createdAt: 1554670800000,
     status: 'delivered'
@@ -78,7 +83,8 @@ const data = [
     ref: 'CDD1044',
     amount: 16.76,
     customer: {
-      name: 'Adam Denisov'
+      name: 'Adam Denisov',
+      total: '$5550'
     },
     createdAt: 1554670800000,
     status: 'delivered'
@@ -92,9 +98,10 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const LatestOrders = ({ className, ...rest }) => {
+const LatestOrders = ({ className,  header=[],...rest }) => {
   const classes = useStyles();
   const [orders] = useState(data);
+
 
   return (
     <Card
@@ -108,28 +115,11 @@ const LatestOrders = ({ className, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>
-                  Order Ref
-                </TableCell>
-                <TableCell>
-                  Customer
-                </TableCell>
-                <TableCell sortDirection="desc">
-                  <Tooltip
-                    enterDelay={300}
-                    title="Sort"
-                  >
-                    <TableSortLabel
-                      active
-                      direction="desc"
-                    >
-                      Date
-                    </TableSortLabel>
-                  </Tooltip>
-                </TableCell>
-                <TableCell>
-                  Status
-                </TableCell>
+                {
+                  header.map(item=>{
+                    return <TableCell>{item}</TableCell>
+                  })
+                }
               </TableRow>
             </TableHead>
             <TableBody>
@@ -143,6 +133,9 @@ const LatestOrders = ({ className, ...rest }) => {
                   </TableCell>
                   <TableCell>
                     {order.customer.name}
+                  </TableCell>
+                  <TableCell>
+                    {order.customer.total}
                   </TableCell>
                   <TableCell>
                     {moment(order.createdAt).format('DD/MM/YYYY')}
